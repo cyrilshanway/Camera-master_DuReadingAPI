@@ -13,6 +13,7 @@
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "AFNetworking.h"
+#import "MyBookDetailViewController.h"
 
 @interface MainViewController ()
 {
@@ -46,6 +47,12 @@
     return imageArray;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -61,7 +68,7 @@
     _sideBarButton.action = @selector(revealToggle:);
     
     //設定手勢
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     //defaultuser
 //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -318,7 +325,7 @@
         NSData *jsondata = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&e2];
         NSLog(@"json data: %@",jsondata);
         
-        //設定auth_token / user_id
+        //設定auth_token / user_id(存)
         NSString *tmp_auth = [dict objectForKey:@"auth_token"];
         NSString *user_id = [NSString stringWithFormat:@"%@",[dict objectForKey:@"user_id"]];
         
@@ -439,7 +446,7 @@
         //擁有的書籍數量(首先用途：要產生幾本封面)
         //NSInteger ownerbbookNum = currentIsbnArray.count;
         
-                NSMutableArray *showPicArray = [[NSMutableArray alloc] init];
+        NSMutableArray *showPicArray = [[NSMutableArray alloc] init];
         
         NSMutableArray *imageList = [NSMutableArray arrayWithCapacity:self.isbnArray.count];
         NSMutableArray *buttonList= [NSMutableArray arrayWithCapacity:self.isbnArray.count];
@@ -512,8 +519,8 @@
             
             [imageList addObject:bgView];
             
-            UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(x+5, y+5, 90, 110)];
-            button.backgroundColor = [UIColor grayColor];
+            UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(x-20, y, 90, 110)];
+            button.backgroundColor = [UIColor clearColor];
             
             button.alpha = 1;
             [buttonList addObject:button];
@@ -554,14 +561,20 @@
     myNewBook.bookPublisher = _finalBookDict[@"publisher"];
     myNewBook.imageAuthor = _showPicArray2[aNum];
     
-    UIImageView *imv = [[UIImageView alloc] initWithImage:myNewBook.imageAuthor];
+    //UIImageView *img = [[UIImageView alloc] initWithImage:myNewBook.imageAuthor];
     
-    NSLog(@"%@",[ myNewBook.bookCommentArray[0] objectForKey:@"id"]);
+    //NSLog(@"%@",[ myNewBook.bookCommentArray[0] objectForKey:@"id"]);
     
     
-    _myBook = myNewBook;
+    self.myBook = myNewBook;
+    
+    [self performSegueWithIdentifier:@"detailSegue" sender:self];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    MyBookDetailViewController* vc = segue.destinationViewController;
+    vc.myBook = self.myBook;
+}
 /*
 #pragma mark - Navigation
 

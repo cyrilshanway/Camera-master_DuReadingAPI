@@ -12,6 +12,7 @@
 #import "MainViewController.h"
 #import "SWRevealViewController.h"
 #import <Parse/Parse.h>
+#import "AFNetworking.h"
 
 @interface ShowBookViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -113,15 +114,14 @@
     //針對imageUrl 前面pic:做修改
 //    NSString *final1 = [_myBook.bookImgUrl stringByReplacingOccurrencesOfString:@"pic: " withString:@""];
 //    self.ShoTextField.text = final1;
-    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *user_id    = [defaults objectForKey:@"user_id"];
     
     NSDictionary *myDictionary = @{@"ISBN" : myNewBook.ISBNNum,
                                    @"title": myNewBook.title,
-                                   @"Owner": myNewBook.owner,
+                                   @"Owner": user_id,
                                    @"email": myNewBook.email,
                                    @"name" : myNewBook.name,
-                                   @"title": myNewBook.title,
-                                   @"ISBNNum": myNewBook.ISBNNum,
                                    @"bookPublished":myNewBook.bookPublished,
                                    @"bookPublisher":myNewBook.bookPublisher,
                                    //@"imageAuthor":myNewBook.imageAuthor,
@@ -129,7 +129,53 @@
                                    @"description":myNewBook.descriptionBook,
                                    @"imageUrl":myNewBook.bookImgUrl
                                    };
+    //API 存書-Post API
+    //1. 準備HTTP Client
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://106.185.55.19/"]];
     
+    
+    //11/28//取auth_token / user_id
+    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *auth_token = [defaults objectForKey:@"auth_token"];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            auth_token,@"auth_token",
+                            myNewBook.ISBNNum,@"isbn",
+                            myNewBook.title,@"title",
+                            myNewBook.owner ,@"user_id",
+                            myNewBook.bookPublished,@"publish_date",
+                            myNewBook.bookPublisher,@"publisher",
+                            myNewBook.name,@"author",
+                            myNewBook.pageNum,@"pages",
+                            myNewBook.descriptionBook,@"description",
+                            myNewBook.bookImgUrl,@"cover_large_url",
+                            nil];
+    
+    NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
+                                                            path:@"api/v1/books"
+                                                      parameters:params];//dictionary
+    //2.準備operation
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    
+    //3.準備callback block
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+#pragma mark - progressed 完成
+        //載入完成
+        
+        
+                
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error");
+    }];
+    
+    //4. Start傳輸
+    [operation start];
+
+    
+    
+    
+    //Parse 存
+    /*
     PFObject *currentBook = [PFObject objectWithClassName:@"Book" dictionary:myDictionary];
     [currentBook saveInBackground];
     [currentBook saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -143,7 +189,7 @@
             [alert show];
         }
     }];
-    
+    */
 }
 
 //回傳每個區段要顯示多少列

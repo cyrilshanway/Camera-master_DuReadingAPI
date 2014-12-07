@@ -328,6 +328,8 @@
 //            [self.navigationController pushViewController:vc animated:YES];
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"查無此書" delegate:self cancelButtonTitle:@"確認" otherButtonTitles: nil];
+            
+            [alert show];
         }
         
     }];
