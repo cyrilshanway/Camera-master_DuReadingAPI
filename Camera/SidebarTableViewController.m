@@ -31,6 +31,8 @@
     
     menuItems = @[
                   @"title",@"camera",@"video",@"connect",@"search",@"MyBook"];
+    
+    self.tableView.backgroundColor = [UIColor colorWithRed:222.0f/255 green:211.0f/255 blue:190.0f/255 alpha:1];
 }
 
 - (void)didReceiveMemoryWarning {

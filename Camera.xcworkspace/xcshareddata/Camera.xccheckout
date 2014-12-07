@@ -10,6 +10,8 @@
 	<string>Camera</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>32E46AE59172EDC003A99D5046A7D99BCBFC1DBC</key>
+		<string>https://github.com/cyrilshanway/Camera-master_DuReadingAPI.git</string>
 		<key>A45240B64D312EF1204EC3681CF33C941765A978</key>
 		<string>https://github.com/cyrilshanway/Camera.git</string>
 		<key>C1E63DD243D325408250A154A53B74371602F0E9</key>
@@ -19,17 +21,19 @@
 	<string>Camera.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>32E46AE59172EDC003A99D5046A7D99BCBFC1DBC</key>
+		<string>..</string>
 		<key>A45240B64D312EF1204EC3681CF33C941765A978</key>
 		<string>../../Camera</string>
 		<key>C1E63DD243D325408250A154A53B74371602F0E9</key>
-		<string>..</string>
+		<string>../../Camera-master</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/cyrilshanway/Camera-master.git</string>
+	<string>https://github.com/cyrilshanway/Camera-master_DuReadingAPI.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C1E63DD243D325408250A154A53B74371602F0E9</string>
+	<string>32E46AE59172EDC003A99D5046A7D99BCBFC1DBC</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -47,6 +51,14 @@
 			<string>C1E63DD243D325408250A154A53B74371602F0E9</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Camera-master</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>32E46AE59172EDC003A99D5046A7D99BCBFC1DBC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Camera-master_DuReadingAPI</string>
 		</dict>
 	</array>
 </dict>
