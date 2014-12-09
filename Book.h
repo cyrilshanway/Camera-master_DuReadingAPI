@@ -31,6 +31,7 @@
 
 @property (nonatomic, strong) UIImage *saveImag;
 
+@property (nonatomic, strong) NSString *book_id;
 //判斷
 @property (nonatomic, strong) NSDictionary *oneBookInfoDictionary;//
 //@property (nonatomic, strong) NSMutableDictionary *oneOwnerAllBooks;//isbn/oneBookInfoDictionary

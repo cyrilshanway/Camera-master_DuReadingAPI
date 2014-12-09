@@ -48,6 +48,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
+
 #pragma mark - private
 //負責建立.設定與顯示圖像挑選器(image picker)作為影片錄製
 - (IBAction)captureVideo:(id)sender {

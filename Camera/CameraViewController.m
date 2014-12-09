@@ -12,12 +12,13 @@
 #import <MessageUI/MessageUI.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "Line.h"
-
+#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 
 @interface CameraViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *checkBtn;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
+@property (strong, nonatomic) ALAssetsLibrary *assetsLibrary;
 
 @end
 
@@ -39,12 +40,29 @@
     
     self.imageView.frame = CGRectMake(0, 0, 0, 0);
     self.saveBtn.hidden = YES;
+    
+    [self openCamera];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)openCamera{
+    //使用內建相簿
+    if ([UIImagePickerController isSourceTypeAvailable:(UIImagePickerControllerSourceTypeSavedPhotosAlbum)]) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+
+}
+
 
 #pragma mark - private
 - (IBAction)selectPhotoBtnPressed:(id)sender {
@@ -200,6 +218,13 @@
 - (IBAction)saveBtnPressed:(id)sender {
     UIImageWriteToSavedPhotosAlbum(self.imageView.image, nil, nil, nil);
     
+    [_assetsLibrary saveImage:self.imageView.image
+                      toAlbum:@"DuReading"
+                   completion:^(NSURL *assetURL, NSError *error) {
+                       NSLog(@"OK");
+                   } failure:^(NSError *error) {
+                       NSLog(@"Failure");
+                   }];
 }
 
 

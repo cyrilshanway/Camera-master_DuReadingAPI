@@ -21,14 +21,15 @@
 }
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bookImg;
 @property (weak, nonatomic) IBOutlet UILabel *bookTitle;
 @property (weak, nonatomic) IBOutlet UILabel *bookAuthor;
-@property (weak, nonatomic) IBOutlet UITextView *ShoTextField;
 
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) UITextView *showDescriptionTextView;
+
+
+
 
 @end
 
@@ -57,18 +58,21 @@
     
     self.bookImg.image = _myBook.imageAuthor;
     
+    self.showDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(16, 200, 342, 300)];
+    self.showDescriptionTextView.backgroundColor = [UIColor colorWithRed:215.0/255 green:205.0/255 blue:184.0/255 alpha:1];
     //針對description做改善
     NSString *final = [_myBook.descriptionBook stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
-    self.ShoTextField.text = final;
+    self.showDescriptionTextView.text = final;
     
-    CGRect frame = self.descriptionLabel.frame;
-    frame.origin.y -= 100;
-    self.descriptionLabel.frame = frame;
+    [self.view addSubview:self.showDescriptionTextView];
+//    CGRect frame = self.showDescriptionTextView.frame;
+//    frame.origin.y -= 100;
+//    self.showDescriptionTextView.frame = frame;
     
     self.bookTitle.text  = _myBook.title;
     self.bookAuthor.text = _myBook.name;
 
-    NSString *publishedString = [NSString stringWithFormat:@"出版社 ： %@", _myBook.bookPublished];
+    NSString *publishedString = [NSString stringWithFormat:@"出版社 ： %@", _myBook.bookPublisher];
     NSString *pageNumString =   [NSString stringWithFormat:  @"頁數     :   %@",_myBook.pageNum];
     NSString *isbnNumString =   [NSString stringWithFormat:  @"ISBN    :   %@",_myBook.ISBNNum];
     
@@ -78,7 +82,7 @@
     
     
     //scrollView
-    self.scrollView.contentSize = CGSizeMake(320.0f, 820.0f);
+    //self.scrollView.contentSize = CGSizeMake(320.0f, 100.0f);
 }
 
 - (void)didReceiveMemoryWarning {

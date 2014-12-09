@@ -71,20 +71,27 @@
     //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     //defaultuser
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSString *defaultuser = [defaults objectForKey:@"user"];
+    //1209
+    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    
+    //NSString *defaultuser = [defaults objectForKey:@"user"];
     //defaultuser:access_token
     
     //設定fb access_token
-    NSString *access_token = [FBSession activeSession].accessTokenData.accessToken;
-    NSLog(@"access_token: %@", access_token);
+    //1209
+    //NSString *access_token = [FBSession activeSession].accessTokenData.accessToken;
+    //NSLog(@"access_token: %@", access_token);
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:access_token forKey:@"access_token"];
+    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //1209
+    //[defaults setObject:access_token forKey:@"access_token"];
     
-    [defaults synchronize];
+    //[defaults synchronize];
     
     [self getLogin];
+    
+    
     /*
     //parse query
     PFQuery *query = [PFQuery queryWithClassName:@"Book"];
@@ -350,6 +357,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *auth_token = [defaults objectForKey:@"auth_token"];
     NSString *user_id    = [defaults objectForKey:@"user_id"];
+    NSLog(@"auth_token:%@", auth_token);
     
     //NSString *auth_token = fb_token;
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -560,6 +568,10 @@
     myNewBook.title = _finalBookDict[@"title"];
     myNewBook.bookPublisher = _finalBookDict[@"publisher"];
     myNewBook.imageAuthor = _showPicArray2[aNum];
+    myNewBook.book_id = _finalBookDict[@"id"];
+    myNewBook.bookCommentArray = [_finalBookDict objectForKey:@"comments"];
+    
+    //NSLog(@"%@",myNewBook.bookCommentArray.count);
     
     //UIImageView *img = [[UIImageView alloc] initWithImage:myNewBook.imageAuthor];
     
