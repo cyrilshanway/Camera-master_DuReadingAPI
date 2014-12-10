@@ -25,7 +25,7 @@
                   symbolName = "-[CaptureViewController saveBtnPressed:]"
                   moduleName = "Camera"
                   urlString = "file:///Users/Way/Downloads/Camera-master_DuReadingAPI/Camera/CaptureViewController.m"
-                  timestampString = "439824299.775739"
+                  timestampString = "439882806.075642"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "225"
@@ -39,7 +39,7 @@
                   symbolName = "__40-[CaptureViewController saveBtnPressed:]_block_invoke"
                   moduleName = "Camera"
                   urlString = "file:///Users/Way/Downloads/Camera-master_DuReadingAPI/Camera/CaptureViewController.m"
-                  timestampString = "439824299.776165"
+                  timestampString = "439882806.075934"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "225"
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Camera/MyBookDetailViewController.m"
-            timestampString = "439822326.157911"
+            timestampString = "439874940.789347"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "-btnPressed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Camera/MyBookDetailViewController.m"
-            timestampString = "439822326.157911"
+            timestampString = "439874940.789347"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "509"
-            endingLineNumber = "509"
+            startingLineNumber = "526"
+            endingLineNumber = "526"
             landmarkName = "-savePhotoBtnPressed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Camera/MyBookDetailViewController.m"
-            timestampString = "439822326.157911"
+            timestampString = "439874940.789347"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "517"
-            endingLineNumber = "517"
+            startingLineNumber = "536"
+            endingLineNumber = "536"
             landmarkName = "-savePhotoBtnPressed:"
             landmarkType = "5">
             <Locations>
@@ -135,28 +135,60 @@
                   symbolName = "-[MyBookDetailViewController savePhotoBtnPressed:]"
                   moduleName = "Camera"
                   urlString = "file:///Users/Way/Downloads/Camera-master_DuReadingAPI/Camera/MyBookDetailViewController.m"
-                  timestampString = "439824299.826943"
+                  timestampString = "439882806.079331"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "517"
-                  endingLineNumber = "517"
-                  offsetFromSymbolStart = "1396">
+                  startingLineNumber = "536"
+                  endingLineNumber = "536"
+                  offsetFromSymbolStart = "1500">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__50-[MyBookDetailViewController savePhotoBtnPressed:]_block_invoke"
+                  symbolName = "__50-[MyBookDetailViewController savePhotoBtnPressed:]_block_invoke338"
                   moduleName = "Camera"
                   urlString = "file:///Users/Way/Downloads/Camera-master_DuReadingAPI/Camera/MyBookDetailViewController.m"
-                  timestampString = "439824299.827181"
+                  timestampString = "439882806.079537"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "517"
-                  endingLineNumber = "517"
+                  startingLineNumber = "536"
+                  endingLineNumber = "536"
                   offsetFromSymbolStart = "96">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Camera/MyBookDetailViewController.m"
+            timestampString = "439875208.411479"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
+            landmarkName = "-savePhotoBtnPressed:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Camera/MyBookDetailViewController.m"
+            timestampString = "439875258.743727"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
+            landmarkName = "-savePhotoBtnPressed:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

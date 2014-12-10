@@ -61,7 +61,7 @@
     self.showDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(16, 200, 342, 300)];
     self.showDescriptionTextView.backgroundColor = [UIColor colorWithRed:215.0/255 green:205.0/255 blue:184.0/255 alpha:1];
     //針對description做改善
-    NSString *final = [_myBook.descriptionBook stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
+    NSString *final = [_myBook.descriptionBook stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
     self.showDescriptionTextView.text = final;
     
     [self.view addSubview:self.showDescriptionTextView];

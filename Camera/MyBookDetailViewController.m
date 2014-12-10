@@ -12,7 +12,7 @@
 #import "SWRevealViewController.h"
 #import "AFNetworking.h"
 
-@interface MyBookDetailViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate>
+@interface MyBookDetailViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate,UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *bookImg;
 @property (weak, nonatomic) IBOutlet UILabel *bookTitleLabel;
@@ -52,6 +52,8 @@
 @property (nonatomic, strong) UITextView *descriptionView;
 @property (nonatomic, strong) UITextView *commentView;
 @property (strong, nonatomic) IBOutlet UITextView *addTextView;
+
+@property (nonatomic, strong) UIImage *finalImage;
 
 @end
 
@@ -173,7 +175,7 @@
     NSString *descriptionString = [NSString stringWithFormat:@"描述     :   %@", _myBook.descriptionBook];
     
     //針對description做改善
-    NSString *final = [descriptionString stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
+    NSString *final = [descriptionString stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
     
     for (int i = 0; i < _showArray.count; i++) {
 
@@ -486,6 +488,7 @@ http://106.185.55.19/api/v1/comments/2?auth_token=12ece4d48c55518afc371000848931
     
     //儲存留言
     /*
+     http://106.185.55.19/api/v1/books/2/comments?auth_token=12ece4d48c55518afc3710008489315e
      http://106.185.55.19/api/v1/books/7/comments?auth_token=12ece4d48c55518afc3710008489315e
      POST /ap1/v1/books/{id}/comments 新增一個留言(或照片)
      參數 content
@@ -506,9 +509,25 @@ http://106.185.55.19/api/v1/comments/2?auth_token=12ece4d48c55518afc371000848931
                             myNewBook.book_id,@"id",
                             nil];
     
+    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST"
+                                                                         path:path
+                                                                   parameters:params
+                                                    constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+                                                        NSString *photoPath = [NSHomeDirectory() stringByAppendingPathComponent:self.imageView.image];
+                                                        UIImage *originalImage = [UIImage imageWithContentsOfFile:photoPath];
+                                                        //UIImage *finalImage = [self scaleImage:originalImage toScale:(float)0.5f];
+                                                        NSData *uploadFile = UIImageJPEGRepresentation(originalImage, 1.0);
+                                                        
+                                                        [formData appendPartWithFileData:uploadFile name:@"Photo" fileName:@"photo.jpg" mimeType:@"image/jpeg"];
+                                                    }];
+    
+    
+/*
     NSMutableURLRequest *request = [httpClient requestWithMethod: @"POST"
                                                             path: path
                                                       parameters: params];//dictionary
+    
+*/
     //2.準備operation
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
