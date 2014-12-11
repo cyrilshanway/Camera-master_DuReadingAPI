@@ -57,7 +57,7 @@
 }
 //delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80.0;
+    return 100.0;
 }
 
 #pragma mark - datasource delegate

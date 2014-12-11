@@ -38,9 +38,7 @@
     //設定手勢
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
-    //self.saveBtn.hidden = YES;
-    
-    //self.saveBtn.hidden = YES;
+    self.saveBtn.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {

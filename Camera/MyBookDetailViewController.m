@@ -12,7 +12,7 @@
 #import "SWRevealViewController.h"
 #import "AFNetworking.h"
 
-@interface MyBookDetailViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate,UIGestureRecognizerDelegate>
+@interface MyBookDetailViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate,UIGestureRecognizerDelegate,UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *bookImg;
 @property (weak, nonatomic) IBOutlet UILabel *bookTitleLabel;
@@ -41,7 +41,7 @@
 
 @property (nonatomic, strong) NSArray *showArray;
 
-
+@property (nonatomic,strong) NSString *savePicLocal;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 
@@ -59,12 +59,10 @@
 
 @implementation MyBookDetailViewController
 
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-
-    
 
 }
 
@@ -126,6 +124,13 @@
     self.duPicImageView = [[UIImageView alloc] init];
     self.addTextView = [[UITextView alloc] init];
     
+    self.commentShowView.hidden = NO;
+    self.photoShowView.hidden = YES;
+    self.showView.hidden = YES;
+    self.imageView.hidden = YES;
+    self.addTextView.hidden = YES;
+    self.addTextView.editable = NO;
+    
     //取fb_pic
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *fb_pic = [defaults objectForKey:@"Photo"];
@@ -135,22 +140,25 @@
     
     _duPic = [UIImage imageWithData:data];
     
+    
+    _savePicLocal = [[NSString alloc] init];
+    
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
-                                   action:@selector(dismissKeyboard)];
-    
+                                   action:@selector(hideKeyboard)];
     
     [self.view addGestureRecognizer:tap];
-
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)dismissKeyboard {
+-(void)hideKeyboard {
     
-    [_addTextView resignFirstResponder];
+    [self.view endEditing:YES];
     
 }
 
@@ -165,11 +173,14 @@
 
 //看其他內容(detail)
 - (IBAction)btnPressed:(id)sender {
-    self.commentShowView.alpha = 0;
-    self.photoShowView.alpha = 0;
-    self.showView.alpha = 1;
-    self.imageView.alpha = 0;
-    self.addTextView.alpha = 0;
+    
+    [_showDeatilTextField resignFirstResponder];
+    
+    self.commentShowView.hidden = YES;
+    self.photoShowView.hidden = YES;
+    self.showView.hidden = NO;
+    self.imageView.hidden = YES;
+    self.addTextView.hidden = YES;
     
     //UITextField *showSthTextField;
     NSString *descriptionString = [NSString stringWithFormat:@"描述     :   %@", _myBook.descriptionBook];
@@ -204,7 +215,7 @@
         _descriptionView.font = [UIFont systemFontOfSize:16.0f];
         
         self.showView.frame = CGRectMake(0, 0, 325, 260);
-        //self.showView.backgroundColor = [UIColor yellowColor];
+        self.showView.backgroundColor = [UIColor yellowColor];
         [self.showView addSubview:_descriptionView];
         [self.showView addSubview:_showDeatilTextField];
         [self.backgroundScrollView addSubview:self.showView];
@@ -220,13 +231,19 @@
 - (IBAction)commentBtnPressed:(id)sender {
     NSLog(@"%lu",self.myBook.bookCommentArray.count);
     //NSLog(@"%@",_myBook.bookCommentArray[0]);
-    self.commentShowView.alpha = 1;
-    self.photoShowView.alpha = 0;
-    self.showView.alpha = 0;
-    self.imageView.alpha = 0;
-    self.addTextView.alpha = 0;
+    self.commentShowView.hidden = NO;
+    self.photoShowView.hidden = YES;
+    self.showView.hidden = YES;
+    self.imageView.hidden = YES;
+    self.addTextView.hidden = YES;
     
     for (int i=0; i<self.myBook.bookCommentArray.count; i++) {
+        
+        NSString *oneComment = [NSString stringWithFormat:@"%@",[self.myBook.bookCommentArray[i]objectForKey:@"content"]];
+        id value = oneComment;
+        if ([value isEqualToString:@"<null>"]){
+            NSLog(@"no message");
+        }else{
         NSInteger x = 0;
         NSInteger y1 = 106;
         NSInteger y2 = 156;
@@ -236,52 +253,52 @@
         NSInteger g = 40;//間隔
         
         
-        NSInteger w1 = 290;
+        //NSInteger w1 = 290;
         
         if( (i % 2) == 0) {
             x = 32;
             y = y1 + 0.5*( h + g )* (i-1);
             self.commentView.backgroundColor = [UIColor blueColor];
             _duPicImageView.image = _duPic;
-            _duPicImageView.frame = CGRectMake(x-30, y, 30, 30);
+            //_duPicImageView.frame = CGRectMake(x-30, y, 30, 30);
+            _duPicImageView.frame = CGRectMake(2, 36, 30, 30);
         }
         else {
             x = 170;
             y = y2 + 0.5*( h + g )* (i-2);
             self.commentView.backgroundColor = [UIColor redColor];
             _duPicImageView.image = _duPic;
-            _duPicImageView.frame = CGRectMake(x+120, y, 30, 30);
+            //_duPicImageView.frame = CGRectMake(x+120, y, 30, 30);
+            _duPicImageView.frame = CGRectMake(290, 86, 30, 30);
         }
         
         self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(x, y, 120, 30)];
-        
-        
-        NSString *oneComment = [NSString stringWithFormat:@"%@",[self.myBook.bookCommentArray[i]objectForKey:@"content"]];
-        
-        NSLog(@"comment: %@", oneComment);
         self.commentView.text = [self.myBook.bookCommentArray[i]objectForKey:@"content"];
-        self.commentView.backgroundColor = [UIColor blueColor];
-        //self.commentView.font = [UIFont systemFontOfSize:31.0f];
-        //self.commentView.enabled = NO;
+        
         NSLog(@"self.commentView.text: %@", self.commentView.text);
+        
+        [self.commentShowView addSubview:self.duPicImageView];
         
         _commentShowView.frame=CGRectMake(0, 0, 325, 260);
         
         //[self.backgroundScrollView addSubview:self.commentView];
-        //self.commentShowView.backgroundColor = [UIColor purpleColor];
-        [self.commentShowView addSubview:self.duPicImageView];
+        self.commentShowView.backgroundColor = [UIColor purpleColor];
+       
        [self.commentShowView addSubview:self.commentView];
        [self.backgroundScrollView addSubview:self.commentShowView];
        [self.view addSubview:self.backgroundScrollView];
+        }
     }
     
 }
 
 //看相片
 - (IBAction)photoBtnPressed:(id)sender {
-    self.commentShowView.alpha = 0;
-    self.photoShowView.alpha = 1;
-    self.showView.alpha = 0;
+    self.commentShowView.hidden = YES;
+    self.photoShowView.hidden = NO;
+    self.showView.hidden = YES;
+    self.imageView.hidden = YES;
+    self.addTextView.hidden = YES;
 }
 
 //刪除書籍資料
@@ -358,13 +375,16 @@
     self.savePhotoBtn.hidden = YES;
     self.saveTextBtn.hidden  = NO;
     
-    self.commentShowView.alpha = 0;
-    self.photoShowView.alpha = 0;
-    self.showView.alpha = 0;
-    self.imageView.alpha = 0;
-    self.addTextView.alpha = 1;
-    
+    self.addTextView.hidden = NO;
+    self.addTextView.editable = YES;
+    self.addTextView.backgroundColor = [UIColor grayColor];
     self.addTextView.frame = CGRectMake(0, 0, 325, 260);
+    
+    self.commentShowView.hidden = YES;
+    self.photoShowView.hidden = YES;
+    self.showView.hidden = YES;
+    self.imageView.hidden = YES;
+    
     
 }
 
@@ -389,18 +409,28 @@
 //info是一個NSDictionary，包含原始圖像以及讓UIImagePickerControllerEditedImage標籤來存取的編輯後圖像
 //，當app允許使用者編輯圖片時，就會用編輯後的圖片來取代遠使的圖片
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    self.commentShowView.alpha = 0;
-    self.photoShowView.alpha = 0;
-    self.showView.alpha = 0;
-    self.imageView.alpha = 1;
-    self.addTextView.alpha = 0;
+    self.commentShowView.hidden = YES;
+    self.photoShowView.hidden = YES;
+    self.showView.hidden = YES;
+    self.imageView.hidden = NO;
+    self.addTextView.hidden = YES;
+    
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     
-    self.imageView.frame = CGRectMake(0, 0, 325, 260);
-    self.imageView.image = chosenImage;
+    NSString *savePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/profile.jpg"];
+    UIImage *currentImg = chosenImage;
+    [UIImageJPEGRepresentation(currentImg, 1.0) writeToFile:savePath atomically:YES];
+    //UIImage *profileImage = [UIImage imageWithContentsOfFile:savePath];
+    self.imageView.image =[UIImage imageWithContentsOfFile:savePath];
+    _savePicLocal = savePath;
+    
+    
+        
+    
+    
     [self.backgroundScrollView addSubview:self.imageView];
     [self.view addSubview:_backgroundScrollView];
-    //self.saveBtn.hidden = NO;
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     self.savePhotoBtn.hidden = NO;
@@ -420,13 +450,13 @@
 http://106.185.55.19/api/v1/comments/2?auth_token=12ece4d48c55518afc3710008489315e
 */
  - (IBAction)saveTextBtnPressed:(id)sender {
-     self.commentShowView.alpha = 0;
-     self.photoShowView.alpha = 0;
-     self.showView.alpha = 0;
-     self.imageView.alpha = 0;
-     self.addTextView.alpha = 1;
+     self.commentShowView.hidden = YES;
+     self.photoShowView.hidden = YES;
+     self.showView.hidden = YES;
+     self.imageView.hidden = YES;
+     self.addTextView.hidden = NO;
     
-     
+     ;
      
     Book *myNewBook = [[Book alloc] init];
     myNewBook = _myBook;
@@ -477,11 +507,11 @@ http://106.185.55.19/api/v1/comments/2?auth_token=12ece4d48c55518afc371000848931
 
 //相片儲存
 - (IBAction)savePhotoBtnPressed:(id)sender {
-    self.commentShowView.alpha = 0;
-    self.photoShowView.alpha = 0;
-    self.showView.alpha = 0;
-    self.imageView.alpha = 1;
-    self.addTextView.alpha = 0;
+    self.commentShowView.hidden = YES;
+    self.photoShowView.hidden = YES;
+    self.showView.hidden = YES;
+    self.imageView.hidden = NO;
+    self.addTextView.hidden = YES;
     
     Book *myNewBook = [[Book alloc] init];
     myNewBook = _myBook;
@@ -502,23 +532,24 @@ http://106.185.55.19/api/v1/comments/2?auth_token=12ece4d48c55518afc371000848931
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *auth_token = [defaults objectForKey:@"auth_token"];
     NSString *path = [NSString stringWithFormat:@"api/v1/books/%@/comments?auth_token=%@",myNewBook.book_id, auth_token];
-    
+    UIImageView *tmp = [[UIImageView alloc] initWithImage:self.imageView.image];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            auth_token,@"auth_token",
-                            self.imageView.image,@"photo",
+//                            auth_token,@"auth_token",
+                            tmp,@"photo",
                             myNewBook.book_id,@"id",
                             nil];
+    
     
     NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST"
                                                                          path:path
                                                                    parameters:params
                                                     constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-                                                        NSString *photoPath = [NSHomeDirectory() stringByAppendingPathComponent:self.imageView.image];
+                                                        NSString *photoPath = [NSHomeDirectory() stringByAppendingPathComponent:_savePicLocal];
                                                         UIImage *originalImage = [UIImage imageWithContentsOfFile:photoPath];
                                                         //UIImage *finalImage = [self scaleImage:originalImage toScale:(float)0.5f];
                                                         NSData *uploadFile = UIImageJPEGRepresentation(originalImage, 1.0);
                                                         
-                                                        [formData appendPartWithFileData:uploadFile name:@"Photo" fileName:@"photo.jpg" mimeType:@"image/jpeg"];
+                                                        [formData appendPartWithFileData:uploadFile name:@"photo" fileName:@"photo.jpg" mimeType:@"image/jpeg"];
                                                     }];
     
     
@@ -547,6 +578,21 @@ http://106.185.55.19/api/v1/comments/2?auth_token=12ece4d48c55518afc371000848931
     
     //4. Start傳輸
     [operation start];
+}
+
+
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView;{
+    NSLog(@"ok");
 }
 /*
 #pragma mark - Navigation

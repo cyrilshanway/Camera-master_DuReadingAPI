@@ -75,7 +75,6 @@
 
 -(void)dismissKeyboard {
     [_scanTextField resignFirstResponder];
-    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

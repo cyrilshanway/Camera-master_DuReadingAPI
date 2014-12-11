@@ -13,8 +13,9 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "Line.h"
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
+#import <FacebookSDK.h>
 
-@interface CameraViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface CameraViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate,MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *checkBtn;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
@@ -128,7 +129,7 @@
         {
             UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇"
                                                                      delegate:self
-                                                            cancelButtonTitle:@"取消" destructiveButtonTitle:@"想分享到" otherButtonTitles:@"Email" ,@"Line", nil];
+                                                            cancelButtonTitle:@"取消" destructiveButtonTitle:@"想分享到" otherButtonTitles:@"Email" ,@"Line",@"Facebook", nil];
             
             actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
             //actionSheet.tag = 1;
@@ -149,6 +150,8 @@
         [self openMail];
     }else if(buttonIndex == 2){
         [self openLine];
+    }else if(buttonIndex == 3){
+        [self FBPost];
     }else{
         NSLog(@"Cancel");
     }
@@ -227,6 +230,50 @@
                    }];
 }
 
+- (void)FBPost{
+    //    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+    //                                   kAppId, @"app_id",
+    //                                   @"http://chings228.wordpress.com/2012/04/05/facebook-login-for-ios-part-1-singleton/", @"link",
+    //                                   @"http://www.shopandpark.com/images/sp_fb.gif", @"picture",
+    //                                   @"Wordpress", @"name",
+    //                                   @"facebook ios demo", @"caption",
+    //                                   @"singleton ", @"description",
+    //                                   nil];
+    //
+    //    postRequest = [facebook requestWithGraphPath:@"me/feed" andParams:params andHttpMethod:@"POST" andDelegate:self];
+    // UIImage *image = [UIImage imageNamed:@"test.png"];
+    
+    //    NSLog(@"[MESSAGE] fb message: %@", message);
+    //    NSLog(@"[MESSAGE] song url: %@", url);
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:@"from DuReading" forKey:@"message"];
+    [params setObject:UIImagePNGRepresentation(self.imageView.image ) forKey:@"picture"];
+    
+    //    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+    //                                   img, @"picture",
+    //                                   message, @"message",
+    //                                   url, @"link",
+    //                                   nil];
+    
+    // Make the request
+    [FBRequestConnection startWithGraphPath:@"/me/photos"
+                                 parameters:params
+                                 HTTPMethod:@"POST"
+                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                              if (!error) {
+                                  // Link posted successfully to Facebook
+                                  NSLog([NSString stringWithFormat:@"Post to wall done: %@", result]);
+                                  [[NSNotificationCenter defaultCenter] postNotificationName:@"postReturn" object:nil];
+                              } else {
+                                  // An error occurred, we need to handle the error
+                                  // See: https://developers.facebook.com/docs/ios/errors
+                                  NSLog([NSString stringWithFormat:@"%@", error.description]);
+                              }
+                          }];
+    
+    
+}
 
 
 @end

@@ -45,12 +45,12 @@
     
     [self.view addGestureRecognizer:tap];
     
-    self.userNameTextField.hidden  = YES;
+    self.userNameTextField.hidden  = NO;
     self.userEmailTextField.hidden = YES;
-    self.pwdTextField.hidden = YES;
+    self.pwdTextField.hidden = NO;
     self.fbBtn.hidden = YES;
-    self.goBtn.hidden =YES;
-    self.orLabel.hidden = YES;
+    self.goBtn.hidden = NO;
+    self.orLabel.hidden = NO;
     self.nextBtn.hidden = YES;
 }
 
@@ -146,9 +146,13 @@
 
 }
 - (IBAction)btnPressed2FbLogin:(id)sender {
-    if (FBSession.activeSession.state == FBSessionStateOpen || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+    if
+        (FBSession.activeSession.state == FBSessionStateOpen || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
         [FBSession.activeSession closeAndClearTokenInformation];
-    } else {
+    }
+    else
+    
+    {
         [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email", @"publish_actions", @"read_stream"]
                                            allowLoginUI:YES
                                       completionHandler:
