@@ -12,6 +12,7 @@
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "AFNetworking.h"
+#import "SWRevealViewController.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *pwdTextField;
@@ -52,6 +53,12 @@
     self.goBtn.hidden = NO;
     self.orLabel.hidden = NO;
     self.nextBtn.hidden = YES;
+    
+    //[self logout];
+}
+
+-(void)logout{
+    [FBSession.activeSession closeAndClearTokenInformation];
 }
 
 //-(void)viewWillAppear:(BOOL)animated{
@@ -85,6 +92,7 @@
     [_userNameTextField resignFirstResponder];
     [_pwdTextField resignFirstResponder];
 }
+/*
 - (IBAction)loginBtnPressed:(id)sender {
     
     [PFUser logInWithUsernameInBackground:self.userNameTextField.text
@@ -145,6 +153,7 @@
                                     }];
 
 }
+ */
 - (IBAction)btnPressed2FbLogin:(id)sender {
     if
         (FBSession.activeSession.state == FBSessionStateOpen || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
@@ -177,12 +186,12 @@
                      else
                          [userData setObject:@""  forKey:@"NickName"];
                      
-                     NSString *access_token = [[[FBSession activeSession] accessTokenData] accessToken];
+                     NSString *access_token  = [[[FBSession activeSession] accessTokenData] accessToken];
                      NSDate *expireationdate = [[[FBSession activeSession] accessTokenData] expirationDate];
                      
                      NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                      
-                     [defaults setObject:access_token forKey:@"access_tokenKey"];
+                     [defaults setObject:access_token forKey:@"access_token"];
                      [defaults setObject:expireationdate forKey:@"FBExpirationDateKey"];
                      
                      //設定fb access_token
@@ -192,8 +201,6 @@
                      //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                      //[defaults setObject:access_token forKey:@"access_token"];
 
-                     
-                     
                      
                      [defaults synchronize];
                      
@@ -210,17 +217,33 @@
                      
                      NSOperationQueue* queue = [[NSOperationQueue alloc] init];
                      [queue addOperation:imageOperation];
-                     
-                     
+                     NSLog(@"aaa");
+                     //[self performSegueWithIdentifier:@"myBooksegue" sender:self];
                      
                      //[self.delegate loginReturn:YES userInfo:userData FailWithError:nil];
+                     
+                     [self test];
+                     
+                     
+                     
                  }
              }];
          }];
     }
 
 }
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    //MainViewController* vc = segue.destinationViewController;
+    //vc.myBook = self.myBook;
+}
 
+
+-(void)test{
+    SWRevealViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    //[tabBarVC setSelectedIndex:1];
+    [self presentViewController:VC animated:YES completion:nil];
+    //    [self.navigationController pushViewController:tabBarVC animated:animated];
+}
 //-(void)viewWillAppear:(BOOL)animated{
 //    [super viewWillAppear:YES];
 //    

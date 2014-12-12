@@ -344,7 +344,7 @@
         [self getDuReadingURL];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error");
+        NSLog(@"Error:%@ ", [error description]);
     }];
     
     //4. Start傳輸
@@ -460,7 +460,18 @@
         NSMutableArray *buttonList= [NSMutableArray arrayWithCapacity:self.isbnArray.count];
         
         //pic轉檔
+        
         for (int i =0; i < currentPicArray.count; i++) {
+            
+            NSObject* o =currentPicArray[i];
+            if([o isKindOfClass:[NSNull class]]){
+                continue;
+            }
+            
+            NSString *tmp = [NSString stringWithFormat:@"%@",currentPicArray[i]];
+//            if (tmp != <null>) {
+//                <#statements#>
+//            }
             UIImage *result;
             NSString *imgurlTrans = currentPicArray[i];
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imgurlTrans]];
@@ -496,7 +507,7 @@
         
         
         //------------------------------------------------//
-        for (int i = 0 ; i < currentIsbnArray.count; i++) {
+        for (int i = 0 ; i < _showPicArray2.count; i++) {
             
             NSInteger x = 40;
             NSInteger y1 = 106;
