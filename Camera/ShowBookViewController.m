@@ -39,6 +39,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //如果之後沒有資料，可以直接卡掉，不會有空的欄位出現
+     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     //btn 潤飾
 //    [_saveBtn.layer setCornerRadius:25.0f];
 //    [_saveBtn.layer setBorderColor:[[UIColor grayColor]CGColor]];
@@ -166,7 +169,9 @@
 #pragma mark - progressed 完成
         //載入完成
         
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"已新增" delegate:self cancelButtonTitle:@"確定" otherButtonTitles: nil];
         
+        [alert show];
                 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error");

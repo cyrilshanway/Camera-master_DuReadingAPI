@@ -44,7 +44,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="667"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WwM-wQ-77V">
-                                <rect key="frame" x="0.0" y="64" width="375" height="286"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="600"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -759,7 +759,7 @@
                                     <action selector="nextBtnPressed:" destination="m3w-P9-ROD" eventType="touchUpInside" id="wu6-yr-r3G"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dXn-mf-xRu">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dXn-mf-xRu">
                                 <rect key="frame" x="26" y="332" width="325" height="260"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FBB-l0-Iz4" userLabel="addTextView2">
@@ -777,7 +777,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uNc-de-AdG">
-                                        <rect key="frame" x="0.0" y="0.0" width="325" height="260"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="325" height="660"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Dx-cd-cXd">

@@ -27,6 +27,10 @@
 		76ABD2D51A2D4BDC00976BFA /* check_yes.png in Resources */ = {isa = PBXBuildFile; fileRef = 76ABD2D31A2D4BDC00976BFA /* check_yes.png */; };
 		76ABD2D61A2D4BDC00976BFA /* check_no.png in Resources */ = {isa = PBXBuildFile; fileRef = 76ABD2D41A2D4BDC00976BFA /* check_no.png */; };
 		76ABD4ED1A2DA06400976BFA /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 76ABD4EC1A2DA06400976BFA /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
+		76BF60CD1A3B00B0003141CD /* Du.png in Resources */ = {isa = PBXBuildFile; fileRef = 76BF60CC1A3B00B0003141CD /* Du.png */; };
+		76BF60D21A3BFE1E003141CD /* baby.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 76BF60D11A3BFE1E003141CD /* baby.jpg */; };
+		76BF60D51A3BFE2A003141CD /* book12.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 76BF60D31A3BFE2A003141CD /* book12.jpg */; };
+		76BF60D61A3BFE2A003141CD /* book13.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 76BF60D41A3BFE2A003141CD /* book13.jpg */; };
 		76C0DE491A28059F001CBA6B /* circle-facebook-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C0DE481A28059F001CBA6B /* circle-facebook-512.png */; };
 		76C0DEB01A28797C001CBA6B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C0DEAF1A28797C001CBA6B /* LoginViewController.m */; };
 		76C20C291A39274B001D29D9 /* 1418282014_facebook_circle_gray-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C20C281A39274B001D29D9 /* 1418282014_facebook_circle_gray-128.png */; };
@@ -162,6 +166,10 @@
 		76ABD2D41A2D4BDC00976BFA /* check_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_no.png; sourceTree = "<group>"; };
 		76ABD4EB1A2DA06400976BFA /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
 		76ABD4EC1A2DA06400976BFA /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
+		76BF60CC1A3B00B0003141CD /* Du.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Du.png; sourceTree = "<group>"; };
+		76BF60D11A3BFE1E003141CD /* baby.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = baby.jpg; sourceTree = "<group>"; };
+		76BF60D31A3BFE2A003141CD /* book12.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = book12.jpg; sourceTree = "<group>"; };
+		76BF60D41A3BFE2A003141CD /* book13.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = book13.jpg; sourceTree = "<group>"; };
 		76C0DE481A28059F001CBA6B /* circle-facebook-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-facebook-512.png"; sourceTree = "<group>"; };
 		76C0DEAE1A28797C001CBA6B /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		76C0DEAF1A28797C001CBA6B /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -374,6 +382,9 @@
 		76C7D2541A270F000062FEC0 /* background */ = {
 			isa = PBXGroup;
 			children = (
+				76BF60D11A3BFE1E003141CD /* baby.jpg */,
+				76BF60D31A3BFE2A003141CD /* book12.jpg */,
+				76BF60D41A3BFE2A003141CD /* book13.jpg */,
 				76C5591E1A343CBB00D62624 /* twins.jpg */,
 				7666092D1A2ADA5F009E8578 /* share_bakckground.jpg */,
 				7666092E1A2ADA5F009E8578 /* raed_back.jpg */,
@@ -429,9 +440,6 @@
 		76C9D3CB1A216D4300C5BD61 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				76C20C281A39274B001D29D9 /* 1418282014_facebook_circle_gray-128.png */,
-				76C3E60A1A36D2380083BCE7 /* _fb_social-128.png */,
-				76C3E6081A36D0BB0083BCE7 /* acebook-128.png */,
 				76C9D3CF1A216D4300C5BD61 /* AppDelegate.h */,
 				76C9D3D01A216D4300C5BD61 /* AppDelegate.m */,
 				76CABBE51A2FF2FC00CCCB0A /* Images */,
@@ -473,6 +481,10 @@
 		76CABBE51A2FF2FC00CCCB0A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				76BF60CC1A3B00B0003141CD /* Du.png */,
+				76C20C281A39274B001D29D9 /* 1418282014_facebook_circle_gray-128.png */,
+				76C3E60A1A36D2380083BCE7 /* _fb_social-128.png */,
+				76C3E6081A36D0BB0083BCE7 /* acebook-128.png */,
 				76C559241A345B2500D62624 /* comment_delete-64.png */,
 				76C559301A34919700D62624 /* comment-256.png */,
 				76C559321A3492E300D62624 /* trash_delete_recycle_bin-256.png */,
@@ -697,6 +709,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76BF60CD1A3B00B0003141CD /* Du.png in Resources */,
 				76CBAF211A25C90100A38D61 /* Icon-Small-50@2x.png in Resources */,
 				76CB5B6B1A2C5CCB0061C915 /* connect_back.jpg in Resources */,
 				76C9D40E1A21B4EF00C5BD61 /* menu-32.png in Resources */,
@@ -733,8 +746,10 @@
 				76C7D2601A270F430062FEC0 /* milan.jpg in Resources */,
 				76C0DE491A28059F001CBA6B /* circle-facebook-512.png in Resources */,
 				76C7D25B1A270F430062FEC0 /* pic_back.jpg in Resources */,
+				76BF60D21A3BFE1E003141CD /* baby.jpg in Resources */,
 				76C9D44D1A21D1F900C5BD61 /* backGround.jpg in Resources */,
 				76C7D25E1A270F430062FEC0 /* camera_back2.jpg in Resources */,
+				76BF60D61A3BFE2A003141CD /* book13.jpg in Resources */,
 				76CBAF241A25C90100A38D61 /* Icon.png in Resources */,
 				76CBAF161A25C90100A38D61 /* Icon-60@2x.png in Resources */,
 				76C9D4081A21AEB100C5BD61 /* menu@2x.png in Resources */,
@@ -773,6 +788,7 @@
 				76C7D2661A2724130062FEC0 /* 8mm_video.jpg in Resources */,
 				76CBAF1D1A25C90100A38D61 /* iTunesArtwork@2x.png in Resources */,
 				76C3E60B1A36D2380083BCE7 /* _fb_social-128.png in Resources */,
+				76BF60D51A3BFE2A003141CD /* book12.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

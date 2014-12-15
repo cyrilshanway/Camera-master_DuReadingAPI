@@ -417,7 +417,13 @@
             NSString *stringA = [NSString stringWithFormat:@"%@", [dict[@"books"][i] objectForKey:@"user_id"]];
             
             if ([user isEqualToString:stringA]) {
-                //NSString *isbnString =[dict[@"books"][i] objectForKey:@"isbn"];
+                
+                
+                NSObject* o =[dict[@"books"][i] objectForKey:@"isbn"];
+                if([o isKindOfClass:[NSNull class]]){
+                    continue;
+                }
+                
                 //只存isbn訊息的array
                 [currentIsbnArray addObject:[dict[@"books"][i] objectForKey:@"isbn"]];
                 //只存pic封面的array
@@ -447,7 +453,7 @@
         
         self.userAllBookArray2 = userAllBookArray;
         NSLog(@"currentPicArray: %@",currentPicArray);
-        NSLog(@"currrentBookDict: %@",currrentBookDict);
+        //NSLog(@"currrentBookDict: %@",currrentBookDict);
         NSLog(@"currentIsbnArray: %@", currentIsbnArray);
         //user擁有的書的isbn array isbnArray
         self.isbnArray = currentIsbnArray;
@@ -469,9 +475,7 @@
             }
             
             NSString *tmp = [NSString stringWithFormat:@"%@",currentPicArray[i]];
-//            if (tmp != <null>) {
-//                <#statements#>
-//            }
+
             UIImage *result;
             NSString *imgurlTrans = currentPicArray[i];
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imgurlTrans]];

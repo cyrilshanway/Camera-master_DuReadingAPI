@@ -57,6 +57,13 @@
 @property (nonatomic, strong) UIImage *finalImage;
 @property (retain, nonatomic)  IBOutlet UITextView *addTextView2;
 
+
+@property (nonatomic, strong) UIImageView *pv1;
+@property (nonatomic, strong) UIImageView *pv2;
+@property (nonatomic, strong) UIImageView *pv3;
+@property (nonatomic, strong) NSMutableArray *commentPhotoArray;
+@property (nonatomic, strong) UIImageView *imageView2;
+@property (nonatomic, strong) NSMutableArray *myArray;
 @end
 
 @implementation MyBookDetailViewController
@@ -112,7 +119,7 @@
     self.deleteButton.tag = 4;
     
     //scrollView
-    self.backgroundScrollView.contentSize = CGSizeMake(320.0f, 320.0f);
+    self.backgroundScrollView.contentSize = CGSizeMake(320.0f, 660.0f);
     
     self.savePhotoBtn.hidden = YES;
     self.saveTextBtn.hidden  = YES;
@@ -145,6 +152,7 @@
     
     _savePicLocal = [[NSString alloc] init];
     
+    
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -158,6 +166,8 @@
     //self.addTextView2.backgroundColor = [UIColor redColor];
     self.addTextView2.frame = CGRectMake(0, 0, 325, 260);
     //[self.addTextView2 setText:@"TEST"];
+    
+    
     
 }
 
@@ -245,10 +255,32 @@
     self.showView.hidden = YES;
     self.imageView.hidden = YES;
     self.addTextView2.hidden = YES;
-    
-    for (int i=0; i<self.myBook.bookCommentArray.count; i++) {
+   
+    ////
+    NSMutableArray *myArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i <self.myBook.bookCommentArray.count; i++) {
+        NSString *tmpString = [NSString stringWithFormat:@"%@",[self.myBook.bookCommentArray[i] objectForKey:@"content"]];
         
-        NSString *oneComment = [NSString stringWithFormat:@"%@",[self.myBook.bookCommentArray[i]objectForKey:@"content"]];
+        NSObject* o =[self.myBook.bookCommentArray[i] objectForKey:@"content"];
+        if([o isKindOfClass:[NSNull class]]){
+            continue;
+        }
+
+        if ([tmpString isEqualToString:@""]) {
+            continue;
+        }
+        
+        [myArray addObject:[self.myBook.bookCommentArray[i] objectForKey:@"content"]];
+    }
+    
+    //NSLog(@"%@", myArray);
+    //
+    
+    
+    //for (int i=0; i<self.myBook.bookCommentArray.count; i++) {
+    for (int i=0; i<myArray.count; i++) {
+        //NSString *oneComment = [NSString stringWithFormat:@"%@",[self.myBook.bookCommentArray[i]objectForKey:@"content"]];
+        NSString *oneComment = myArray[i];
         id value = oneComment;
         if ([value isEqualToString:@"<null>"]){
             NSLog(@"no message");
@@ -285,8 +317,9 @@
         }
         
         self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(x, y, 120, 30)];
-        self.commentView.text = [self.myBook.bookCommentArray[i]objectForKey:@"content"];
-        
+        //self.commentView.text = [self.myBook.bookCommentArray[i]objectForKey:@"content"];
+            self.commentView.text = myArray[i];
+            
         NSLog(@"self.commentView.text: %@", self.commentView.text);
         
         [self.commentShowView addSubview:self.duPicImageView];
@@ -295,8 +328,8 @@
         
         //[self.backgroundScrollView addSubview:self.commentView];
         self.commentShowView.backgroundColor = [UIColor colorWithRed:211.0/255 green:211.0/255 blue:190.0/255 alpha:1];
-       
-            [self.commentShowView addSubview:img];
+       self.backgroundScrollView.backgroundColor =[UIColor colorWithRed:211.0/255 green:211.0/255 blue:190.0/255 alpha:1];
+       [self.commentShowView addSubview:img];
        [self.commentShowView addSubview:self.commentView];
        [self.backgroundScrollView addSubview:self.commentShowView];
        [self.view addSubview:self.backgroundScrollView];
@@ -312,6 +345,126 @@
     self.showView.hidden = YES;
     self.imageView.hidden = YES;
     self.addTextView2.hidden = YES;
+    
+    _myArray = [[NSMutableArray alloc] initWithCapacity:0];
+    for (int i = 0; i <self.myBook.bookCommentArray.count; i++) {
+        NSString *tmpString = [NSString stringWithFormat:@"%@",[self.myBook.bookCommentArray[i] objectForKey:@"photo_large_url"]];
+        NSObject* o =[self.myBook.bookCommentArray[i] objectForKey:@"photo_large_url:"];
+        if([o isKindOfClass:[NSNull class]]){
+            continue;
+        }
+        if ([tmpString isEqualToString:@"http://106.185.55.19/images/original/missing.png"]) {
+            continue;
+        }
+        [_myArray addObject:[self.myBook.bookCommentArray[i] objectForKey:@"photo_large_url"]];
+    }
+    NSLog(@"%@",_myArray);
+    
+    self.commentPhotoArray = [[NSMutableArray alloc] initWithCapacity:0];
+    UIView *bgView = [[UIView alloc] init];
+    //NSMutableArray *tmpPicArray = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    if (_myArray.count == 0) {
+        [self.commentPhotoArray addObject:@"book13.jpg"];
+        [self.commentPhotoArray addObject:@"baby.jpg"];
+        [self.commentPhotoArray addObject:@"book12.jpg"];
+        NSLog(@"%@", self.commentPhotoArray);
+        for (int i = 0 ; i < _commentPhotoArray.count; i++)
+        {
+            switch (i) {
+                case 0:
+                    bgView.frame = CGRectMake(0, 0, 325, 260);
+                    bgView.backgroundColor = [UIColor colorWithRed:211.0/255 green:211.0/255 blue:190.0/255 alpha:1];
+                    _imageView2 = [[UIImageView alloc] init];
+                    _imageView2.frame=CGRectMake(0, 0, 325, 260);
+                    _imageView2.image = [UIImage imageNamed:_commentPhotoArray[0]];
+                    [bgView addSubview:_imageView2];
+                    break;
+                case 1:
+                    bgView.frame = CGRectMake(0, 0, 325, 260);
+                    bgView.backgroundColor = [UIColor colorWithRed:211.0/255 green:211.0/255 blue:190.0/255 alpha:1];
+                    _imageView2 = [[UIImageView alloc] init];
+                    _imageView2.frame=CGRectMake(0, 260, 325, 260);
+                    _imageView2.image = [UIImage imageNamed:_commentPhotoArray[1]];
+                    [bgView addSubview:_imageView2];
+                    break;
+                case 2:
+                    bgView.frame = CGRectMake(0, 0, 325, 260);
+                    bgView.backgroundColor = [UIColor colorWithRed:211.0/255 green:211.0/255 blue:190.0/255 alpha:1];
+                    _imageView2 = [[UIImageView alloc] init];
+                    _imageView2.frame=CGRectMake(0, 520, 325, 260);
+                    _imageView2.image = [UIImage imageNamed:_commentPhotoArray[2]];
+                    [bgView addSubview:_imageView2];
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+                    break;
+            }
+            [self.photoShowView addSubview:bgView];
+            [self.backgroundScrollView addSubview:self.photoShowView];
+        }
+    }else{
+        for (int i =0; i < _myArray.count; i++) {
+            NSObject* o =_myArray[i];
+            if([o isKindOfClass:[NSNull class]]){
+            continue;
+            }
+            UIImage *result;
+            NSString *imgurlTrans = _myArray[i];
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imgurlTrans]];
+        
+            result = [UIImage imageWithData:data];
+            [self.commentPhotoArray addObject:result];
+            
+            NSLog(@"%@", self.commentPhotoArray);
+            switch (i) {
+                case 0:
+                    //bgView.frame = CGRectMake(0, 0, 148, 130);
+                    bgView.frame = CGRectMake(0, 0, 325, 260);
+                    bgView.backgroundColor = [UIColor colorWithRed:211.0/255 green:211.0/255 blue:190.0/255 alpha:1];
+                    _imageView2 = [[UIImageView alloc] init];
+                    //_imageView2.frame=CGRectMake(0, 0, 148, 130);
+                    _imageView2.frame=CGRectMake(0, 0, 325, 260);
+                    _imageView2.image = [_commentPhotoArray objectAtIndex:0];
+                   [bgView addSubview:_imageView2];
+                    
+                    //[_imageView2 setImage:[_commentPhotoArray objectAtIndex:0]];
+                    break;
+                case 1:
+                     //bgView.frame = CGRectMake(0, 0, 148, 130);
+                    bgView.frame = CGRectMake(0, 0, 325, 260);
+                     bgView.backgroundColor = [UIColor colorWithRed:211.0/255 green:211.0/255 blue:190.0/255 alpha:1];
+                    _imageView2 = [[UIImageView alloc] init];
+                    //_imageView2.frame=CGRectMake(0, 130, 148, 130);
+                    _imageView2.frame=CGRectMake(0, 260, 325, 260);
+                    _imageView2.image = self.commentPhotoArray[1];
+                    [bgView addSubview:_imageView2];
+                    break;
+                case 2:
+                    //bgView.frame = CGRectMake(0, 0, 148, 130);
+                    bgView.frame = CGRectMake(0, 0, 325, 260);
+                     bgView.backgroundColor = [UIColor colorWithRed:211.0/255 green:211.0/255 blue:190.0/255 alpha:1];
+                    _imageView2 = [[UIImageView alloc] init];
+                    //_imageView2.frame=CGRectMake(145, 0, 180, 260);
+                    _imageView2.frame=CGRectMake(0, 520, 325, 260);
+                    _imageView2.image = self.commentPhotoArray[2];
+                    [bgView addSubview:_imageView2];
+                    break;
+                 case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+                    break;
+            }
+            [self.photoShowView addSubview:bgView];
+            [self.backgroundScrollView addSubview:self.photoShowView];
+            //[self.view addSubview:self.backgroundScrollView];
+        }
+    }
 }
 
 //刪除書籍資料
@@ -467,8 +620,6 @@ http://106.185.55.19/api/v1/comments/2?auth_token=12ece4d48c55518afc371000848931
      self.showView.hidden = YES;
      self.imageView.hidden = YES;
      self.addTextView2.hidden = NO;
-    
-     
      
     Book *myNewBook = [[Book alloc] init];
     myNewBook = _myBook;
@@ -540,16 +691,11 @@ http://106.185.55.19/api/v1/comments/2?auth_token=12ece4d48c55518afc371000848931
      參數 photo
      回傳 comment_id
      */
-    /*
-     
-    */
     
     UIImage *chosenImage = self.imageView.image;
      NSString *savePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/profile.jpg"];
      UIImage *currentImg = chosenImage;
      [UIImageJPEGRepresentation(currentImg, 1.0) writeToFile:savePath atomically:YES];
-    
-    
     
     //1. 準備HTTP Client
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://106.185.55.19/"]];
